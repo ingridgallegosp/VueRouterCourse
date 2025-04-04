@@ -3,13 +3,8 @@ import HomePage from '@/views/HomePage.vue';
 
 const routes = [
     { path: '/', component: HomePage },
-    { path: '/about', component: ()=> import('@/views/AboutPage.vue') },
-    { path: '/brazil', component: ()=> import('@/views/Brazil.vue') },
-    { path: '/hawaii', component: ()=> import('@/views/Hawaii.vue') },
-    { path: '/jamaica', component: ()=> import('@/views/Jamaica.vue') },
-    { path: '/panama', component: ()=> import('@/views/Panama.vue') },
     { path: '/:pathMatch(.*)*', component: ()=> import('@/views/NotFound.vue') },
-    {path: '/destination/:id', component: ()=> import('@/views/DestinationShow.vue')},
+    { path: '/destination/:id/:slug', name: 'destination.show', component: ()=> import('@/views/DestinationShow.vue')},
 ];
 
 const router = createRouter({
@@ -34,3 +29,11 @@ export default router;
 
 //2.13 Dynamic Routes
 //Route parameters o Params
+
+//2.14  Named routes
+//name property
+
+//2.15 Params Changes
+
+
+
