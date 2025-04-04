@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import sourceData from '../sourceData.json';
-import { RouterLink } from 'vue-router';
+import { RouterLink, useRouter } from 'vue-router';
 
+const $router = useRouter();
 const destinations =sourceData.destinations ;
 
 </script>
