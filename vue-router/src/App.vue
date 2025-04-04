@@ -1,14 +1,9 @@
 <script setup lang="ts">
+import TheNavigation from './components/TheNavigation.vue';
 </script>
 
 <template>
-    <nav class="nav">
-        <router-link to="/">Inicio</router-link>
-        <router-link to="/brazil">Brazil</router-link>
-        <router-link to="/panama">Panama</router-link>
-        <router-link to="/jamaica">Jamaica</router-link>
-        <router-link to="/hawaii">Hawaii</router-link>
-    </nav>
+    <TheNavigation />
     <div class="container">
         <router-view />
     </div>

@@ -1,18 +1,15 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import HomePage from '@/views/HomePage.vue';
-import AboutPage from '@/views/AboutPage.vue';
-import Brazil from '../views/Brazil.vue';
-import Hawaii from '../views/Hawaii.vue';
-import Jamaica from '../views/Jamaica.vue';
-import Panama from '../views/Panama.vue';
 
 const routes = [
     { path: '/', component: HomePage },
-    { path: '/about', component: AboutPage },
-    { path: '/brazil', component: Brazil },
-    { path: '/hawaii', component: Hawaii },
-    { path: '/jamaica', component: Jamaica },
-    { path: '/panama', component: Panama },
+    { path: '/about', component: ()=> import('@/views/AboutPage.vue') },
+    { path: '/brazil', component: ()=> import('@/views/Brazil.vue') },
+    { path: '/hawaii', component: ()=> import('@/views/Hawaii.vue') },
+    { path: '/jamaica', component: ()=> import('@/views/Jamaica.vue') },
+    { path: '/panama', component: ()=> import('@/views/Panama.vue') },
+    { path: '/:pathMatch(.*)*', component: ()=> import('@/views/NotFound.vue') },
+    {path: '/destination/:id', component: ()=> import('@/views/DestinationShow.vue')},
 ];
 
 const router = createRouter({
@@ -32,3 +29,8 @@ el trafico tiene un solo punto de entrada
 export default router;
 
 
+//2.10 lazy loading: imports when it's needed, not all at the beginning
+// { path: '/about', component: ()=> import('@/views/AboutPage.vue') },
+
+//2.13 Dynamic Routes
+//Route parameters o Params
