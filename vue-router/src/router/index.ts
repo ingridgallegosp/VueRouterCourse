@@ -1,22 +1,25 @@
 import { createRouter, createWebHistory, useRoute, useRouter } from 'vue-router';
-import HomePage from '@/views/HomePage.vue';
+import HomePage from '../views/HomePage.vue';
 const $route = useRoute();
 
 const routes = [
     { path: '/', component: HomePage },
-    { path: '/:pathMatch(.*)*', component: ()=> import('@/views/NotFound.vue') },
+    { path: '/:pathMatch(.*)*', component: ()=> import('../views/NotFound.vue') },
     {
         path: '/destination/:id/:slug',
         name: 'destination.show',
-        component: ()=> import('@/views/DestinationShow.vue'),
+        component: ()=> import('../views/DestinationShow.vue'),
         props: (route) => ({...$route.params, id: parseInt(route.params.id)}),
-        },
-    {
-        path: '/destination/:id/:slug/:experienceSlug',
-        name: 'experience.show',
-        component: ()=> import('@/views/ExperienceShow.vue'),
-        props: (route) => ({...$route.params, id: parseInt(route.params.id)}),
+        children: [
+            {
+                path: ':experienceSlug',
+                name: 'experience.show',
+                component: ()=> import('../views/ExperienceShow.vue'),
+                props: (route) => ({...$route.params, id: parseInt(route.params.id)}),
+            },
+        ]
     },
+
 ];
 
 const router = createRouter({

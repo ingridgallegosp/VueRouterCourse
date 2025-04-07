@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import sourceData from '../sourceData.json';
 import { computed } from 'vue';
+import GoBack from "@/components/GoBack.vue";
 
 const props = defineProps({
     id: {
         type: Number,
         required: true,
-    }
+    },
     experienceSlug: {
         type: String,
         required: true,
@@ -17,8 +18,8 @@ const destination = computed(() => {
         return destination.id === props.id;
     });
 });
-const experiences = computed(() => {
-    return destination.experiences.find((experience: any) => {
+const experience = computed(() => {
+    return destination.value?.experiences.find((experience: any) => {
         return experience.slug === props.experienceSlug;
     });
 });
