@@ -55,6 +55,7 @@ watch(() => $route.params.slug, async (newSlug) => {
 										<ExperienceCard :experience="experience" />
 								</RouterLink>
 						</div>
+                    <RouterView />
 				</section>
 		</section>
 </template>

@@ -1,14 +1,20 @@
-import { createRouter, createWebHistory, useRoute, useRouter } from 'vue-router';
+import { createRouter, createWebHistory } from 'vue-router';
 import HomePage from '../views/HomePage.vue';
+import sourceData from '../sourceData.json';
 
 const routes = [
     { path: '/', component: HomePage },
-    { path: '/:pathMatch(.*)*', component: ()=> import('../views/NotFound.vue') },
     {
         path: '/destination/:id/:slug',
         name: 'destination.show',
         component: ()=> import('../views/DestinationShow.vue'),
         props: (route) => ({...route.params, id: parseInt(route.params.id)}),
+        //nav guard recibes a to parameter and from parameter - navigated to and navigate away from
+        //comparing with sourceData
+        beforeEnter: (to, from) => {
+            const exists = sourceData.destinations.find(destination => destination.id === parseInt(to.params.id));
+            if(!exists) return { name: 'NotFound' }
+        },
         children: [
             {
                 path: ':experienceSlug',
@@ -18,11 +24,18 @@ const routes = [
             },
         ]
     },
+    { path: '/:pathMatch(.*)*', name:'NotFound', component: ()=> import( '../views/NotFound.vue') },
+    //navigation guard
+    
 ];
 
 const router = createRouter({
     history: createWebHistory(),
-    routes
+    routes,
+    //scroll behavior
+    scrollBehavior(to, from, savedPosition) {
+        return savedPosition || { top: 0};
+    }
 });
 //2.9 create web history:
 /*urls que luce normal como '/brazil'
