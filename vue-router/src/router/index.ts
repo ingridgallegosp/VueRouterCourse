@@ -3,7 +3,24 @@ import HomePage from '../views/HomePage.vue';
 import sourceData from '../sourceData.json';
 
 const routes = [
-    { path: '/', component: HomePage },
+    { path: '/', name:'Home', component: HomePage },
+    {
+        path:'/protected',
+        name:'protected',
+        component: () => import('../views/Protected.vue'),
+        meta: { requiresAuth: true }
+    },
+    {
+        path: '/login',
+        name: 'login',
+        component: () => import('../views/Login.vue')
+    },
+    {
+        path: '/invoices',
+        name: 'invoices',
+        component: () => import('../views/Invoices.vue'),
+        meta: { requiresAuth: true }
+    },
     {
         path: '/destination/:id/:slug',
         name: 'destination.show',
@@ -47,6 +64,13 @@ practica comun en SPA para imitar el path sin hacer configuraciones especiales d
 el trafico tiene un solo punto de entrada
  */
 
+
+//global navigation guard
+router.beforeEach((to, from) => {
+    if(to.meta.requiresAuth && !window.user) {
+        return { name: 'login', query: { redirect: to.fullPath } }
+    }
+});
 export default router;
 
 

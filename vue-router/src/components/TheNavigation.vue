@@ -17,6 +17,8 @@ console.log('destinations', destinations)
             {{destination.name}}
         </RouterLink>
         
+        <RouterLink :to="{name: 'protected'}">Dashboard</RouterLink>
+        
     </nav>
 </template>
 
